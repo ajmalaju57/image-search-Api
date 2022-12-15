@@ -25,6 +25,8 @@ class _HomeState extends State<Home> {
   var search = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    print(size.height);
     return Scaffold(
       backgroundColor:  Color(0xFF000633),
       appBar: AppBar(
@@ -63,7 +65,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               SizedBox(
-                height: 500,
+                height: size.height*.800,
                 child: FutureBuilder<BigData?>(
                     future: getData(),
                     builder: (context, AsyncSnapshot<BigData?> snapshote) {
@@ -71,7 +73,7 @@ class _HomeState extends State<Home> {
                         return Center(child: CircularProgressIndicator());
                       }
                       if (!snapshote.hasData) {
-                        return Text("no data");
+                        return Center(child: Text("No Internet",style: TextStyle(color: Colors.white),));
                       }
                       return GridView.builder(
                           itemCount: snapshote.data!.hits!.length,
@@ -94,11 +96,16 @@ class _HomeState extends State<Home> {
                                 },
                                 child: Container(
                                   width: 100,
-                                  height: 100,
-                                  // color: Colors.red,
-                                  child: Image.network(snapshote
-                                      .data!.hits![index].largeImageURL
-                                      .toString()),
+                                  height: size.height*.202,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(51,1,57,1),
+                                      image: DecorationImage(
+                                          image:NetworkImage(snapshote
+                                              .data!.hits![index].largeImageURL
+                                              .toString()),
+                                          fit: BoxFit.cover),
+                                      borderRadius: BorderRadius.circular(30)
+                                  ),
                                 ),
                               ),
                             );
