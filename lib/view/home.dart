@@ -22,9 +22,7 @@ class _HomeState extends State<Home> {
       return BigData.fromJson(jsonDecode(response.body));
     }
   }
-
   var search = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
